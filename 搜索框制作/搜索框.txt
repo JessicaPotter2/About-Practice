@@ -1,0 +1,12 @@
+<input/>的局限性
+<input/>是自闭合标签，不能定义复杂样式按钮
+<input/>标签的type="submit"时，可以提交表单内容到服务器，此时，按钮必须放置在要提交的表单元素内，也就是<form>标签内
+<form>：action属性  target属性  method属性
+Ajax
+jQuery:
+$.get(url,callback,'json')
+url:请求的服务器端口和接口地址，服务器与前端约定好的地址
+callback:回调函数，把从服务器返回的数据用一定的方式展示给用户
+json:返回数据的类型
+
+Ajax的同源策略：Ajax发送请求的URL地址和服务器地址必须是同一域名下

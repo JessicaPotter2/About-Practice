@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" content="text/html" http-equiv="Content-Type">
+	<title>taobao-search</title>
+	<link rel="stylesheet" type="text/css" href="css/taobao.css">
+</head>
+<body>
+<div class='search-container'>
+	<div class='search-list' id="search_tab">
+		<ul>
+			<li id="tab_1" class="selected"><a href="#">宝贝</a></li>
+			<li id="tab_2"><a href="#">店铺</a></li>
+		</ul>
+	</div>
+	<div class="search-pannel">
+		<form>
+			<div class='search-tips'>
+				<a href="#">高级<br/>搜索</a>
+			</div>
+			<div class='search-button'>
+				<button class="btn-search" type="submit"></button>
+			</div>
+			<div class="search-common-panel">
+				<input type="text"  x-webkit-speech="">
+				<i class="iconfont">ő</i>
+			</div>
+		</form>
+	</div>
+</div>	
+</body>
+<script type="text/javascript">
+	var getDom=function(id){
+		return document.getElementById(id);
+	}
+	var addEvent=function(id,event,fn){
+		var el=getDom(id) || document;
+		if(el.addEventListener){
+			el.addEventListener(event,fn,false);
+		}else if(el.attachEvent){
+			el.attachEvent('on'+event,fn);
+		}
+	}
+	addEvent('search_tab','mouseover',function(){
+		this.className+=' trigger-hover';
+	});
+	addEvent('tab_1','mouseover',function(){
+		if(this.className.indexOf('selected')<0){
+		this.className+=' selected';
+		}
+	});
+	addEvent('tab_1','mouseout',function(){
+		this.className=' ';
+	});
+	addEvent('tab_1','click',function(){
+		getDom('search_tab').className='search-list';
+	});
+	addEvent('tab_2','click',function(){
+		getDom('search_tab').className='search-list';
+	});
+	addEvent('tab_2','mouseover',function(){
+		if(this.className.indexOf('selected')<0){
+		this.className+=' selected';
+		}
+	});
+	addEvent('tab_2','mouseout',function(){
+		this.className=' ';
+	});
+</script>
+</html>
