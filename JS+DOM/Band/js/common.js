@@ -1,30 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Explaning the Document Object Model</title>
-	<style type="text/css">
-		body{font-family: "Helvetica","Arial",sans-serif;}
-		abbr{text-decoration: none;border: 0;font-style: normal;}
-	</style>
-</head>
-<body>
-<ul id="navigation">
-	<li><a href="index.html" accesskey="1">Home</a></li>
-	<li><a href="search.html" accesskey="4">Search</a></li>
-	<li><a href="contact.html" accesskey="9">Contact</a></li>
-</ul>
-	<h1>What is th Document Object Model?</h1>
-	<p>
-		The <abbr title="World Wide Web Consortium">W3C</abbr> defines the <abbr title="Document Object Model">DOM</abbr> as:</p>
-		<blockquote cite="http://www.w3.org/DOM/">
-		<p>
-		A platform- and language-neutral interface that will allow programs and scripts to dynamically access and update the contents,struture and style of document.
-		</p>
-		</blockquote>
-		<p>It is an <abbr title="Application Programming Interface">API</abbr> that can be used to navigate <abbr title="HyperText Markup Language">HTML</abbr> and <abbr title="eXtensible Markup Language">XML</abbr> documents.</p>
-		<script type="text/javascript">
-			function displayAbbreviations(){
+/*addLoadEvent()函数，把函数绑定到window.onload事件上*/
+		function addLoadEvent(func){
+			var oldonload=window.onload;
+			if(typeof window.onload!='function'){
+				window.onload=func;
+			}else{
+				window.onload=function(){
+					oldonload();
+					func();
+				}
+			}
+		}
+//调用方法：addLoadEvent(func);
+/*在targetElement后面插入newElement*/
+function insertAfter(newElement,targetElement){
+			var parent=targetElement.parentNode;
+			if(parent.lastChild==targetElement){
+				parent.appendChild(newElement);
+			}else{
+				parent.insertBefore(newElement,targetElement.nextSibling);
+			}
+		}
+/*创建缩略词列表*/
+function displayAbbreviations(){
 				if(!document.getElementsByTagName || !document.createElement || !document.createTextNode) return false;
 				//获取所有的abbr
 				var abbreviations=document.getElementsByTagName("abbr");
@@ -64,19 +61,8 @@
 				document.body.appendChild(header);
 				document.body.appendChild(dlist);
 			}
-			function addLoadEvent(func){
-				var oldonload=window.onload;
-				if(typeof window.onload!="function"){
-					window.onload=func;
-				}else{
-					window.onload=function(){
-						oldonload();
-						func();
-					}
-				}
-			}
-			addLoadEvent(displayAbbreviations);
-			function displayCitations(){
+/*创建引用链接*/
+function displayCitations(){
 				if(!document.getElementsByTagName || !document.createElement || !document.createTextNode) return false;
 				var quotes=document.getElementsByTagName("blockquote");
 				for(var i=0;i<quotes.length;i++){
@@ -95,8 +81,8 @@
 
 				}
 			}
-			addLoadEvent(displayCitations);
-			function displayAccessKeys(){
+/*创建快捷键列表*/
+function displayAccessKeys(){
 				if(!document.getElementsByTagName || !document.createElement || !document.createTextNode) return false;
 				//获取所有的链接
 				var links=document.getElementsByTagName("a");
@@ -132,7 +118,73 @@
 				document.body.appendChild(header);
 				document.body.appendChild(list);
 			}
-			addLoadEvent(displayAccessKeys);
-		</script>
-</body>
-</html>
+/*给元素添加类class*/
+
+		function addClass(element,value){
+			if(!element.className){
+				element.className=value;
+			}else{
+				newClassName=element.className+" "+value;
+				element.className=newClassName;
+			}
+		}
+/*获取紧跟元素的节点*/
+function getNextElement(node){
+			if(node.nodeType==1){
+				return node;
+			}
+			if(node.nextSibling){
+				return getNextElement(node.nextSibling);
+			}
+			return null;
+		}
+/*给元素紧跟节点添加样式*/
+
+		function styleElementSiblings(tag,theclass){
+			if(!document.getElementsByTagName) return false;
+			var elems=document.getElementsByTagName(tag);
+			for(var i=0;i<elems.length;i++){
+				var elem=getNextElement(elems[i].nextSibling);
+				addClass(elem,theclass);
+			}
+		}
+/*用JS实现动画*/
+function moveElement(elementID,final_x,final_y,interval){
+			if(!document.getElementById) return false;
+			if(!document.getElementById(elementID)) return false;
+			var elem=document.getElementById(elementID);
+			if(elem.movement){
+				clearTimeout(elem.movement);//对movement进行复位，使实际执行的只有一条setTimeout（）函数调用语句，setTimeout队列里不再有积累的事件
+			}
+			if(!elem.style.left){
+				elem.style.left="0px";
+			}
+			if(!elem.style.top){
+				elem.style.top="0px";
+			}
+			var xpos=parseInt(elem.style.left);
+			var ypos=parseInt(elem.style.top);
+			if(xpos==final_x && ypos==final_y){
+				return true;
+			}
+			if(xpos<final_x){
+				var dist=Math.ceil((final_x-xpos)/10);//向上取整,目标值与现在的值的十分之一
+				xpos=xpos+dist;
+			}
+			if(xpos>final_x){
+				var dist=Math.ceil((xpos-final_x)/10);
+				xpos=xpos-dist;
+			}
+			if(ypos<final_y){
+				var dist=Math.ceil((final_y-ypos)/10);
+				ypos=ypos+dist;
+			}
+			if(ypos>final_y){
+				var dist=Math.ceil((ypos-final_y)/10);
+				ypos=ypos-dist;
+			}
+			elem.style.left=xpos+"px";
+			elem.style.top=ypos+"px";
+			repeat="moveElement('"+elementID+"',"+final_x+","+final_y+","+interval+")";
+			elem.movement=setTimeout(repeat,interval);
+		}

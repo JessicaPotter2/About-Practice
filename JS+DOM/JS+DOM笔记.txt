@@ -33,3 +33,23 @@ createElement（）方法创建元素节点，createTextNode创建文本节点�
 parentElement.insertBefore(newElement,targetElement)
 即使某种特定的浏览器会引起问题，也没有必要使用浏览器嗅探代码，对浏览器的名称和版本号进行嗅探的办法很难做到面面俱到，而且往往会导致非常复杂难解的代码。
 JavaScript脚本只应该用来充实文档的内容，要避免使用DOM技术来直接插入核心内容。
+减号和加号之类的操作符是JavaScript语言保留给自己使用的特殊字符，不允许用在函数或变量的名字里。这同时意味着他们也不能用在方法或属性（方法和属性是关联在某个对象上的函数和变量）的名字里。
+element.style.fontFamily  element.style.backgroundColor  element.style.fontWeight  element.style.marginTopWidth
+通过style属性检索样式信息有很大的局限性：只能返回那些内嵌在HTML内容里的样式信息。在外部样式表里声明的样式信息不会进入style对象。
+我们将需要决定是使用纯粹的CSS解决方案，还是利用DOM来设置样式。我们需要考虑：这个问题最简单的解决方案是什么，那种解决方案会得到更多的浏览器的支持。一般原则：如果想改变某个元素的呈现效果，就应该选用CSS，如果想改变某个元素的行为，就应该用DOM。如果想根据某个元素的行为去改变它的呈现效果，需要进一步的思考。
+与其使用DOM脚本去直接改变某个元素的样式信息，不如通过JavaScript代码去刷新这个元素的class属性。
+className属性是一个可读/可写的属性，凡是元素节点都有这个属性。通过className属性设置某个元素的class属性值将替换，而不是追加该元素现有的一切class设置。addClass函数，可以解决这个问题：
+function addClass(element,value){
+			if(!element.className){
+				element.className=value;
+			}else{
+				newClassName=element.className+" "+value;
+				element.className=newClassName;
+			}
+		}
+在挑选解决方案时，只要有可能，我们应该刷新className属性值，而不是直接刷新style对象的有关属性。
+static：元素按照他们在HTML文档里的先后顺序出现在浏览器窗口里。relative与static相似，但是position属性为relative的元素还可以在float属性的作用下从文档的正常显示顺序中脱离出来。
+variable=setTimeout("function",interval),interval以毫秒为单位。
+clearTimeout（variable）函数可以取消等待执行龟裂里的某个尚未开始执行的函数。
+从一个函数内部调用这个函数本身叫做递归调用。
+Math.ceil()向上取整，Math.floor()向下取整，Math.round()取最近的整数。
