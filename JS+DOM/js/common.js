@@ -188,3 +188,14 @@ function moveElement(elementID,final_x,final_y,interval){
 			repeat="moveElement('"+elementID+"',"+final_x+","+final_y+","+interval+")";
 			elem.movement=setTimeout(repeat,interval);
 		}
+//XHR对象
+function getHTTPObject(){
+	if(window.ActiveXObject){
+		var waystation=new ActiveXObject("Microsoft.XMLHTTP");
+	}else if(window.XMLHTTPRequest){
+		var waystation=new XMLHTTPRequest();
+	}else{
+		var waystation=false;
+	}
+	return waystation;
+}

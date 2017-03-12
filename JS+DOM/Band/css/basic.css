@@ -1,17 +1,48 @@
 /*color*/
-body{color: #fb5; background-color: #334;}
+a{text-decoration: none;font-weight: bold;}
 a:link{color: #445;background-color: #eb6;}
 a:visited{color: #345;background-color: #eb6;}
 a:hover{color: #778;background-color: #fb5;}
 a:active{color: #778;background-color: #ec8;}
-#header{color: #ec8;background-color: #334;border-color: #667;}
-#navigation{color: #445;background-color: #789;border-color: #667;}
-#content{color: #223;background-color: #edc;border-color: #667;}
-#navigation ul{border-color: #99a;}
-#navigation a:link,#navigation a:visited{color: #eef;background-color: transparent;border-color: #99a;}
+#content{color: #223;background-color: #edc;}
+#navigation a:link,#navigation a:visited{color: #eef;background-color: transparent;}
 #navigation a:hover{color: #445;background-color: #eb6;}
 #navigation a:active{color: #667;background-color: #ec8;}
 /*main*/
 *{padding: 0;margin: 0;}
-body{margin: 1em 10%;background-image: url(../img/background.gif);}
-
+body{margin: 1em 10%;background-image: url(../img/background.gif);background-attachment: fixed;background-position: top left;background-repeat: repeat-x;max-width: 80em;font-size: 76%;font-family: "Helvetica","Arial",sans-serif;color: #fb5; background-color: #334;}
+body *{font-size: 1em;}
+#header{background: url(../img/guitarist.gif) no-repeat bottom right; border:0.1em solid #667;border-bottom: 0;color: #ec8;background-color: #334;}
+#navigation{border:0.1em solid #667;border-top: 0;padding-left: 10%;color: #445;background-color: #789;font-family: "Lucida Grande","Helvetica","Arial",sans-serif;}
+#navigation a{text-decoration: none;font-weight: bold;}
+#navigation a.here:link,#navigation a.here:visited,#navigation a.here:hover,#navigation a.here:active{color: #eef;background-color: #799;}
+#navigation ul{width: 100%;overflow: hidden;border-left: 0.1em solid #99a;}
+#navigation ul li{display: inline;}
+#navigation ul li a{display: block;float: left;padding: 0.5em 2em;border-right: 0.1em solid #99a;}
+#content{border: 0.1em solid #667;border-top: 0;padding: 2em 10%;line-height: 1.8em;}
+#content p{margin: 1em 0;}
+h1,h2,h3{font-family: "Georgia","Times New Roman",sans-serif;font-weight: normal;}
+h1{font-size: 2.4em;}
+h2{font-size: 1.8em;margin-top: 1em;}
+h3{font-size: 1.4em;margin-top: 1em;}
+#about #header{background-image: url(../img/lineup.gif);}
+#photos #header{background-image: url(../img/basshead.gif);}
+#live #header{background-image: url(../img/bassist.gif);}
+#contact #header{background-image: url(../img/drummer.gif);}
+#slideshow{width: 150px;height: 150px;position: relative;overflow: hidden;}
+#preview{position: absolute;}
+#imagegallery li{display: inline;}
+#imagegallery{margin-top: 20px;}
+#placeholder{margin-top: 20px;}
+td{padding: .5em 3em;}
+th{color: #edc;background-color: #455;}
+tr td{color: #223;background-color: #eb6;}
+#content table{margin-top: 20px;}
+dl{overflow: hidden;}
+dt,dd{float: left;}
+dt{margin-right: 1em;}
+dd{margin-right: 3em;}
+tr.odd td{color:#223;background-color: #ec8;}
+tr.highlight td{color: #223;background-color: #cba;}
+label{display: block;}
+fieldset{border: 0;}

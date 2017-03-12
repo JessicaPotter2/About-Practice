@@ -53,3 +53,15 @@ variable=setTimeout("function",interval),interval以毫秒为单位。
 clearTimeout（variable）函数可以取消等待执行龟裂里的某个尚未开始执行的函数。
 从一个函数内部调用这个函数本身叫做递归调用。
 Math.ceil()向上取整，Math.floor()向下取整，Math.round()取最近的整数。
+当前页面的URL可以用window.location.href获得。
+string.indexOf(substring)返回substring在字符串string里第一次出现的位置。如果没有找到一个匹配，将返回-1.返回其他值说明他找到了一个匹配。
+split（）方法根据某个给定的分隔符把一个字符串拆分成两个或更多个部分的常用方法：array=string.split(character)
+Form对象，Form对象的elements.length属性只对表单元素，如input，textarea等进行统计。elements数组里的每个表单都有自己的一套属性，elements.value表示该元素的当前值，elements.defaultValue表示该表单元素的初始值。onfocus事件将在用户用Tab键或鼠标选中某个元素时被触发；onblur事件将在用户让输入焦点离开该元素时被触发。
+测试工作变得越复杂，出现“负误判”的概率也就越大。即对表单数据检查太过复杂的话，合法数据遭到拒绝的概率就会增加。
+readyState属性包含着一个数值，这个数值将随着服务器对相关请求的处理进度而变化，有五种可去值：0 尚未初始化，1 正在加载，2 加载完毕，3 正在处理，4 处理完毕。一旦readyState属性的值变成了4，就可以对从服务器返回的响应数据进行访问了，从服务器返回的响应数据保存在responseText属性里，那是一个字符串值。
+文本节点的nodeName返回值是#text.
+cloneNode()方法将为给定节点创建一个副本，这个方法返回值是一个指向新建克隆节点的引用指针，这个方法只有一个布尔类型的参数，它的取值只可能是true或false。cloneNode（true）包含被复制节点完全一样的子节点，cloneNode（false）不包含被复制元素的任何子节点，但是会复制属性节点，注意被复制元素有一个独一无二的id属性值，复制的节点id属性值相同，需要进行修改。
+removeChild（）可以删除节点，某节点被removeChild（）方法删除时，这个节点所包含的所有子节点将同时被删除。
+replaceChild（newChild，oldChild）方法将把一个给定父元素里的一个子节点替换为另外一个节点。
+haschildNodes方法检查一个给定元素是否有子节点，返回true有子节点，返回false无子节点。文本节点和属性节点不可能包含任何子节点，这两类节点使用hasChildNodes方法返回值是false。
+nodeValue属性返回给定节点的当前值，如果给定节点是一个属性节点，返回这个属性的值，如果是文本节点，返回这个文本节点的内容。元素节点返回null.
