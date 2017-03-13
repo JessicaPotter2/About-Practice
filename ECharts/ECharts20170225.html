@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我的第一个ECharts</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="js/echarts.js"></script>
+</head>
+<body>
+	<div id="main4"></div>
+	<div id="main5"></div>
+	<div id="main6"></div>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+	var myChart=echarts.init(document.getElementById('main4'));
+	var myChart1=echarts.init(document.getElementById('main5'));
+	var myChart2=echarts.init(document.getElementById('main6'));
+	var app={};
+	option=null;
+function fetchData(cb) {
+    // 通过 setTimeout 模拟异步加载
+    setTimeout(function () {
+        cb({
+            categories: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"],
+            data: [5, 20, 36, 10, 10, 20]
+        });
+    }, 3000);
+}
+
+// 初始 option
+option = {
+    title: {
+        text: '异步数据加载'
+    },
+    tooltip: {},
+    legend: {
+        data:['销量']
+    },
+    xAxis: {
+        data: []
+    },
+    yAxis: {},
+    series: [{
+        name: '销量',
+        type: 'bar',
+        data: []
+    }]
+};
+
+myChart.showLoading();//加载动画
+
+fetchData(function (data) {
+    myChart.hideLoading();//隐藏加载动画
+    myChart.setOption({
+        xAxis: {
+            data: data.categories
+        },
+        series: [{
+            // 根据名字对应到相应的系列
+            name: '销量',
+            data: data.data
+        }]
+    });
+});;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+option1 = null;
+var base = +new Date(2014, 9, 3);
+var oneDay = 24 * 3600 * 1000;
+var date = [];
+
+var data = [Math.random() * 150];
+var now = new Date(base);
+
+function addData(shift) {
+    now = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/');
+    date.push(now);
+    data.push((Math.random() - 0.4) * 10 + data[data.length - 1]);
+
+    if (shift) {
+        date.shift();
+        data.shift();
+    }
+
+    now = new Date(+new Date(now) + oneDay);
+}
+
+for (var i = 1; i < 100; i++) {
+    addData();
+}
+
+option1 = {
+	title:{
+		text:'动态更新数据'
+	},
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: date
+    },
+    yAxis: {
+        boundaryGap: [0, '50%'],
+        type: 'value'
+    },
+    series: [
+        {
+            name:'成交',
+            type:'line',
+            smooth:true,
+            symbol: 'none',
+            stack: 'a',
+            areaStyle: {
+                normal: {}
+            },
+            data: data
+        }
+    ]
+};
+
+setInterval(function () {
+    addData(true);
+    myChart1.setOption({
+        xAxis: {
+            data: date
+        },
+        series: [{
+            name:'成交',
+            data: data
+        }]
+    });
+}, 500);;
+if (option1 && typeof option1=== "object") {
+    myChart1.setOption(option1);
+}
+var data1=[];
+var data2=[];
+var data3=[];
+var random=function(max){
+	return (Math.random()*max).toFixed(3);
+};
+for(var i=0;i<500;i++){
+	data1.push([random(15),random(10),random(1)]);
+	data2.push([random(10),random(10),random(1)]);
+	data3.push([random(15),random(10),random(1)]);		//第一个维度映射到x轴，第二个维度映射到y轴，气泡半径为第三个维度
+}
+option2={
+	animation:false,
+	legend:{
+		data:['scatter','scatter2','scatter3']
+	},
+	tooltip:{
+
+	},
+	xAxis:{
+		type:'value',
+		min:'dataMin',
+		max:'dataMax',
+		splitLine:{
+			show:true
+		}
+	},
+	yAxis:{
+		type:'value',
+		min:'dataMin',
+		max:'dataMax',
+		splitLine:{
+			show:true
+		}
+	},
+	dataZoom:[//数据区域缩放组件
+	{
+		type:'slider',
+		show:true,
+		xAxisIndex:[0],		//控制x轴
+		start:1,    	//左边在1%的位置
+		end:35			//右边在35%的位置
+	},
+	{
+		type:'slider',
+		show:true,
+		yAxisIndex:[0],
+		left:'93%',
+		start:29,
+		end:36
+	},
+	{
+		type:'inside',
+		xAxisIndex:[0],
+		start:1,
+		end:35
+	},
+	{
+		type:'inside',		//可在坐标系内拖动及用滚轮或移动触屏上的两指滑动进行缩放
+		yAxisIndex:[0],
+		start:29,
+		end:36
+	}
+	],
+	series:[
+	{
+		name:'scatter',		
+		type:'scatter',		//散点图,气泡图
+		itemStyle:{
+			normal:{
+				opacity:0.8
+			}
+		},
+		symbolSize:function(val){
+			return val[2]*40;
+		},
+		data:data1
+	},
+	{
+		name:'scatter2',
+		type:'scatter',
+		itemStyle:{
+			normal:{
+				opacity:0.8
+			}
+		},
+		symbolSize:function(val){
+			return val[2]*40;
+		},
+		data:data2
+	},
+	{
+		name:'scatter3',
+		type:'scatter',
+		itemStyle:{
+			normal:{
+				opacity:0.8
+			}
+		},
+		symbolSize:function(val){
+			return val[2]*40;
+		},
+		data:data3
+	}
+	]
+};
+if (option2 && typeof option2=== "object") {
+    myChart2.setOption(option2);
+}
+</script>
+</body>
+</html>
